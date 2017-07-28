@@ -1,0 +1,50 @@
+
+    <header>
+      <nav class="logo letter pad2">
+        <ul class="no-list row center-xs middle-xs">
+          <li class="col-md">
+            <h1 class="no-margin">sicMu</h1>
+            </li>
+        </ul>
+      </nav>
+      <nav class="be-red white pad_length">
+        <ul class="no-list row center-xs">
+          <li class="col-md">
+            <%= link_to "inicio", root_path %>
+          </li>
+          <%if user_signed_in? %>
+            <li class="col-md">
+              perfil
+            </li>
+          <%end%>
+          <%if not user_signed_in? %>
+            <li class="col-md">
+            <%=link_to "ingresar", new_user_session_path%>
+            </li>
+          <%end%>
+          <%if not user_signed_in? %>
+            <li class="col-md">
+                <%=link_to "registrarce", new_user_registration_path%>
+            </li>
+          <%else%>
+            <li class="col-md">
+              agregar cancion
+            </li>
+          <%end%>
+          <%if not user_signed_in? %>
+            <li class="col-md">
+               ¿Que es sicMu?
+            </li>
+          <%else%>
+            <li class="col-md">
+              buscar lista
+            </li>
+          <%end%>
+          <%if user_signed_in? %>
+            <li class="col-md">
+              <%=link_to "Cerrar sesión",destroy_user_session_path, method: :delete%>
+            </li>
+          <%end%>
+        </ul>
+      </nav>
+    </header>

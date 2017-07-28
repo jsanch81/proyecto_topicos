@@ -1,11 +1,5 @@
 class WelcomeController < ApplicationController
-  layout 'ejemplo'
+  layout "welcome"
   def index
-    @tutor = "jose david"
-    @num = 12
-    @num2 = 5
-    @bool= false
-    @mensaje = "paso"
-
   end
 end

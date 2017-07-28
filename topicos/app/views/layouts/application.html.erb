@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Topicos</title>
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lobster" rel="stylesheet">
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,9 +10,9 @@
   </head>
 
   <body>
-    <header>
-      <h1>ejemplo</h1>
-    </header>
+  <%=render "partials/navigation"%>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>

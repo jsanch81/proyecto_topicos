@@ -1,10 +1,11 @@
-<h1>hi bitch</h1>
-<h2>turor: <%= @tutor %></h2>
-<p>jaja</p>
-<h3>result: <%=@num * @num2 %></h3>
-<%if !@bool %>
-      <p>mensaje: <%=@mensaje %><p>
-<%end%>
-<footer>
-  <p>by <%= @tutor %></p>
-</footer>
+<h1 class="center-xs">Welcome!!</h1>
+<h2 class="center-xs">
+  <%if not user_signed_in? %>
+
+  <a> <img src="https://userscontent2.emaze.com/images/bf1e13f6-60a4-48ee-a855-52b31414c1bd/3172b38b-5a28-4c1a-aedb-4f5b666f27de.png"/>
+  </a>
+
+  <%else%>
+    <%=current_user.email%>
+  <%end%>
+</h2>
