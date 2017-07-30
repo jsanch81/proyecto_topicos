@@ -4,7 +4,11 @@ class CreateArticles < ActiveRecord::Migration[5.1]
       t.string :title
       t.text :body
       t.integer :visit_count
-      t.timestamps
+      t.string :artista
+      t.string :tamano
+      t.string :album
+      t.integer :ano
+      t.string :tiempo
     end
   end
 end

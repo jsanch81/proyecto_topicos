@@ -1,13 +1,31 @@
-<h1 class="center-xs">!!Bienvenido!!</h1>
+<% if not user_signed_in? %>
+<div id="my-div">
+  <h1 class="center-xs inicio">!!Bienvenido!!</h1>
   <%if not user_signed_in? %>
-<h2 class="center-xs">!!Crea, descubre, y disfruta tu sicMu!!</h2>
+    <h2 class="center-xs inicio">!!Crea, descubre, y disfruta tu sicMu!!</h2>
   <%end%>
-<h2 class="center-xs">
+    <h2 class="center-xs ini">
+      <%if not user_signed_in? %>
+        <a class="center-xs"> <img src="http://1.bp.blogspot.com/-qEB9H5AJhdI/VSlNLloc1PI/AAAAAAADYLg/DAvT8Q_J1jc/w1200-h630-p-k-no-nu/NOTAS%2BMUSICALES%2B(203).png"/></a>
+      <%else%>
+        <h2 class="inicio center-xs"><%=current_user.email%></h2>
+        <b class="center-xs"> <img src="http://1.bp.blogspot.com/-EU0HetHMhtw/WHUUSX-URsI/AAAAAAAAKAY/j2B7DZAmK4MCeISx4PiJDC20YBWzXQlcwCK4B/s1600/794cee2a-a33d-467a-b93f-3302608f752a.png"/></b>
+      <%end%>
+    </h2>
+  </div>
+<% else %>
+<div id="my-div2">
+  <h1 class="center-xs inicio">!!Bienvenido!!</h1>
   <%if not user_signed_in? %>
-  <a class="center-xs"> <img src="https://userscontent2.emaze.com/images/bf1e13f6-60a4-48ee-a855-52b31414c1bd/3172b38b-5a28-4c1a-aedb-4f5b666f27de.png"/>
-  </a>
-
-  <%else%>
-    <%=current_user.email%>
+    <h2 class="center-xs inicio">!!Crea, descubre, y disfruta tu sicMu!!</h2>
   <%end%>
-</h2>
+    <h2 class="center-xs ini">
+      <%if not user_signed_in? %>
+        <a class="center-xs"> <img src="http://1.bp.blogspot.com/-qEB9H5AJhdI/VSlNLloc1PI/AAAAAAADYLg/DAvT8Q_J1jc/w1200-h630-p-k-no-nu/NOTAS%2BMUSICALES%2B(203).png"/></a>
+      <%else%>
+        <h2 class="inicio center-xs"><%=current_user.email%></h2>
+        <b class="center-xs"> <img src="http://1.bp.blogspot.com/-EU0HetHMhtw/WHUUSX-URsI/AAAAAAAAKAY/j2B7DZAmK4MCeISx4PiJDC20YBWzXQlcwCK4B/s1600/794cee2a-a33d-467a-b93f-3302608f752a.png"/></b>
+      <%end%>
+    </h2>
+  </div>
+<% end %>

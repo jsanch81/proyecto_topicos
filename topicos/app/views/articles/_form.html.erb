@@ -5,11 +5,27 @@
     </div>
   <%end%>
   <div class="field">
-    <%= f.text_field :title, placeholder: "Titulo de la cansión", class:"form-control" %>
+    <%= f.text_field :title, placeholder: "Titulo de la canción", class:"form-control" %>
   </div>
   <div class="field">
-    <%= f.text_area :body, placeholder: "Descripcion de la cansión", style:"height:200px", class:"form-control" %>
+    <%= f.text_field :artista, placeholder: "Nombre del artista", class:"form-control" %>
   </div>
+  <div class="field">
+    <%= f.text_field :tamano, placeholder: "Tamaño de la canción en Megabytes", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :album, placeholder: "Nombre del album", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :ano, placeholder: "Año de estreno", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :tiempo, placeholder: "Duración de la canción", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_area :body, placeholder: "Descripcion de la canción", style:"height:200px", class:"form-control" %>
+  </div>
+
   <div class="field">
       <%=f.submit "Guardar", class:"btn"%>
   </div>

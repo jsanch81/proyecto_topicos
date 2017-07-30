@@ -16,7 +16,14 @@ html{
     display: inline-block;
     font-size: 16px;
 }
-
+.inicio{
+  color:  #C7B9AB;
+  font-family: 'Bree Serif', serif;
+}
+.ini{
+  color: black;
+  font-family: 'Bree Serif', serif;
+}
 .ed{
   margin-top: 1em;
    background-color: #D6CBC5;
@@ -28,7 +35,18 @@ html{
     display: inline-block;
     font-size: 16px;
 }
-
+#my-div{
+  background-image: url(http://masquevinilo.com/5616-thickbox_default/vinilo-decorativo-saxofon.jpg);
+}
+#my-div3{
+  background-image: url(https://s-media-cache-ak0.pinimg.com/originals/b6/e0/5d/b6e05dc3a29f9aa67351042b9123e1a6.jpg);
+}
+#my-div2{
+  background-image: url(http://3.bp.blogspot.com/-dJY46mQBs2A/U5Y2UkvlYkI/AAAAAAAAB7A/kpIelRkRvjU/s1600/Png_Dibujo.png);
+}
+#my-div4{
+  background-image: url(http://orig13.deviantart.net/a56d/f/2013/038/4/5/notas_musicales_png__recurso_de_tuto__by_paokayeditions-d5u57uz.png);
+}
 .err{
   margin-top: 1em
 }
@@ -41,13 +59,12 @@ background-color: black;
 }
 .white{
   color: #C7B9AB;
-  font-size: 16px;
+  font-size: 20px;
   font-family: 'Bree Serif', serif;
 }
 .pad_length{
   padding: 6px 10px;
 }
-
 .field{
   color: black;
   margin-top:1em;

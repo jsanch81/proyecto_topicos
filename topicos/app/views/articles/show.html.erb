@@ -1,7 +1,19 @@
-<h1><%= @article.title%></h1>
-<div>
-  <%=@article.body%>
+<h1 class="inicio center-xs col-md"><%= @article.title%></h1>
+<div class="inicio center-xs col-md">
+
+  <h5 class="inicio">Artista: <%=@article.artista%></h5>
+  <h5 class="inicio">Tamaño: <%=@article.tamano%> MG</h5>
+  <h5 class="inicio">album: <%=@article.album%></h5>
+  <h5 class="inicio">Año de estreno: <%=@article.ano%></h5>
+  <h5 class="inicio">Duracion de la cancion: <%=@article.tiempo%></h5>
+  <p class="err inicio">Descripcion:</p>
+  <p class="inicio"><%=@article.body%></p>
+
+
 </div>
-<div>
-  <%=link_to "Editar", edit_article_path(@article), class:"ed"%>
+<p class="inicio center-xs">subido por: <%=@article.user.email%></p>
+<div class="center-xs col-md">
+  <% if @article.user_id == current_user.id %>
+      <%=link_to "Editar", edit_article_path(@article), class:"ed"%>
+  <% end %>
 </div>

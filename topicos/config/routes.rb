@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   devise_for :users
 resources :articles
   # get "/article"
@@ -9,6 +10,9 @@ resources :articles
   # get "/article/:id/edit"
   # path "/article/:id"
   # put "/article/:id"
+
+  post 'about/index'
+  get 'about/index'
 
   post 'examples/form'
   get 'examples/form'

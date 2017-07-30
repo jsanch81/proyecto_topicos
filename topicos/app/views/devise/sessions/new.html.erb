@@ -1,26 +1,34 @@
-<div class="low center-xs">
+<div class="low center-xs inicio", id="my-div2">
 <h2>Iniciar sesion</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
+    <p class="inicio">
     <%= f.label :email ,"Correo electrónico"%><br />
     <%= f.email_field  :email, autofocus: true ,class:"div"%>
+    </p>
   </div>
 
   <div class="field">
+    <p class="inicio">
     <%= f.label :password, "Contraseña" %><br />
     <%= f.password_field :password, autocomplete: "off",class:"div"%>
+    </p>
   </div>
 
   <% if devise_mapping.rememberable? -%>
     <div class="field">
+      <p class="inicio">
       <%= f.check_box :remember_me%>
       <%= f.label :remember_me, "Guardar sesión" %>
+      </p>
     </div>
   <% end -%>
 
   <div class="actions">
+    <p class="inicio">
     <%= f.submit "Iniciar sesión",class:"boton"%>
+    </p>
   </div>
 <% end %>
 
