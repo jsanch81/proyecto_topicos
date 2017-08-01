@@ -1,19 +1,42 @@
 
-<%if  not @buscar then %>
-  <p class="inicio center-xs">buscar</p>
-  <div id="my-div3">
-    <% @articles.each do |article| %>
+
+<div class="center-xs field">
+  <%= form_tag articles_path, method: :get do %>
+    <%= text_field_tag :keyword,nil,placeholder: "¿Que estas buscando?" %>
+    <%= content_tag :button,class:"btn", type: :submit do%>
+      Buscar
+    <% end %>
+  <% end %>
+</div>
+
+    <div id="my-div3">
+      <% @articles.each do |article| %>
+        <% if article.privacida == "Privado" and article.user_id == current_user.id %>
+          <div class="center-xs col-md inicio">
+              <h1 class="inicio"><%=link_to article.title, article%></h1>
+              <h5 class="inicio">Artista: <%=article.artista%></h5>
+              <div>
+                <%=article.body%>
+                <p class="inicio center-xs">subido por: <%=article.user.email%></p>
+                <p class="inicio center-xs">visitas: <%=article.visit_count%></p>
+                <% if article.user_id == current_user.id %>
+                <div class="ini"><%= link_to "Eliminar", article, method: :delete, class:"red"%></a></div>
+                <% end %>
+              </div>
+          </div>
+      <% elsif article.privacida == "Publico" %>
       <div class="center-xs col-md inicio">
-        <h1 class="inicio"><%=link_to article.title, article%></h1>
-        <div>
-          <%=article.body%>
-          <p class="inicio center-xs">subido por: <%=article.user.email%></p>
-          <p class="inicio center-xs">visitas: <%=article.visit_count%></p>
-          <% if article.user_id == current_user.id %>
+          <h1 class="inicio"><%=link_to article.title, article%></h1>
+          <h5 class="inicio">Artista: <%=article.artista%></h5>
+          <div>
+            <%=article.body%>
+            <p class="inicio center-xs">subido por: <%=article.user.email%></p>
+            <p class="inicio center-xs">visitas: <%=article.visit_count%></p>
+            <% if article.user_id == current_user.id %>
             <div class="ini"><%= link_to "Eliminar", article, method: :delete, class:"red"%></a></div>
-          <% end %>
-        </div>
+            <% end %>
+          </div>
       </div>
-      <%end%>
+      <% end %>
+    <%end%>
     </div>
-<%end%>

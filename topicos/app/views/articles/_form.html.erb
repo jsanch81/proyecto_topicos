@@ -5,6 +5,10 @@
     </div>
   <%end%>
   <div class="field">
+
+    <h5 class="inicio">Privacidad de la canción: </h5>-<%= f.select :privacida, options_for_select([["Publico"], ["Privado"]]) %>
+  </div>
+  <div class="field">
     <%= f.text_field :title, placeholder: "Titulo de la canción", class:"form-control" %>
   </div>
   <div class="field">

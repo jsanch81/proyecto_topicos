@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'search/create'
+
   resources :comments
   devise_for :users
 resources :articles
@@ -10,6 +12,7 @@ resources :articles
   # get "/article/:id/edit"
   # path "/article/:id"
   # put "/article/:id"
+  get 'search/create'
 
   post 'about/index'
   get 'about/index'

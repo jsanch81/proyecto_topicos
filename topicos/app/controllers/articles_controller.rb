@@ -1,13 +1,18 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_article, except: [:index,:new, :create]
-  #GET article
+  before_action :set_article, except: [:index,:new, :create, :buscar]
+
   def buscar
     @buscar = false
   end
-
+  #GET article
   def index
+    palabra = "%#{params[:keyword]}%"
+    if palabra!=nil
+      @articles = Article.where("title LIKE ? OR artista LIKE ?",palabra,palabra)
+    else
       @articles = Article.all
+    end
   end
 
   #GET /articles/:id
@@ -27,7 +32,7 @@ class ArticlesController < ApplicationController
   def update
 
     if  @article.update(article_params)
-      redirect_to@article
+      redirect_to @article
     else
       render :edit
     end
@@ -54,6 +59,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title,:body,:tamano,:artista,:ano,:tiempo,:album)
+    params.require(:article).permit(:title,:body,:tamano,:artista,:ano,:tiempo,:album,:privacida)
   end
 end

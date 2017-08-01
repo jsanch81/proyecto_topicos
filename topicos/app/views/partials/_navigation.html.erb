@@ -21,8 +21,6 @@
         <%= link_to "Inicio", articles_path %>
       </li>
       <%end%>
-
-
       <%if user_signed_in? %>
       <li class="col-md">
         Perfil
@@ -46,14 +44,18 @@
       <li class="col-md">
         <%=link_to "¿Que es sicMu?", about_index_path %>
       </li>
+      <li>
+      </li>
       <%else%>
       <li class="col-md">
-        <%=link_to "Buscar lista", articles_path%>
+        <%=link_to "Buscar canción", articles_path%>
       </li>
       <%end%>
       <%if user_signed_in? %>
       <li class="col-md">
         <%=link_to "Cerrar sesión",destroy_user_session_path, method: :delete%>
+      </li>
+      <li>
       </li>
       <%end%>
     </ul>
