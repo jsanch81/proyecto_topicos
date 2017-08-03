@@ -11,9 +11,22 @@
 
 
 </div>
-<p class="inicio center-xs">subido por: <%=@article.user.email%></p>
-<div class="center-xs col-md">
-  <% if @article.user_id == current_user.id %>
+
+<% if not @article.user == nil %>
+  <p class="inicio center-xs">subido por: <%=@article.user.email%></p>
+<% else %>
+  <p>subido por: cuenta cerrada</p>
+<% end %>
+<% if not @article.privacida == "Publico" %>
+
+  <% if user_signed_in? and @article.user.id == current_user.id %>
+    <div class="center-xs col-md">
       <%=link_to "Editar", edit_article_path(@article), class:"ed"%>
+    </div>
   <% end %>
-</div>
+
+<% elsif user_signed_in? and @article.user.id == current_user.id %>
+    <div class="center-xs col-md">
+      <%=link_to "Editar", edit_article_path(@article), class:"ed"%>
+    </div>
+<% end %>

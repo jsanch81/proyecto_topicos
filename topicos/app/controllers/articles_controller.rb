@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index,:show]
   before_action :set_article, except: [:index,:new, :create, :buscar]
 
   def buscar
@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
     if palabra!=nil
       @articles = Article.where("title LIKE ? OR artista LIKE ?",palabra,palabra)
     else
-      @articles = Article.all
+      @articles = Article.all.recientes
     end
   end
 

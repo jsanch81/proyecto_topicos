@@ -17,6 +17,8 @@ resources :articles
   post 'about/index'
   get 'about/index'
 
+  get 'perfil/index'
+
   post 'examples/form'
   get 'examples/form'
   get 'welcome/index'

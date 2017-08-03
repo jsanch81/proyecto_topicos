@@ -16,6 +16,9 @@
       <li class="col-md">
         <%= link_to "Inicio", root_path %>
       </li>
+      <li>
+        <%= link_to "Canciones publicas", articles_path %>
+      </li>
       <%else%>
       <li class="col-md">
         <%= link_to "Inicio", articles_path %>
@@ -23,7 +26,7 @@
       <%end%>
       <%if user_signed_in? %>
       <li class="col-md">
-        Perfil
+        <%=link_to "Perfil", edit_user_registration_path %>
       </li>
       <%end%>
       <%if not user_signed_in? %>
