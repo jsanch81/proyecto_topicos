@@ -9,7 +9,7 @@ class ArticlesController < ApplicationController
   def index
     palabra = "%#{params[:keyword]}%"
     if palabra!=nil
-      @articles = Article.where("title LIKE ? OR artista LIKE ?",palabra,palabra)
+      @articles = Article.where("title LIKE ? OR artista LIKE ? OR album LIKE ?",palabra,palabra,palabra)
     else
       @articles = Article.all.recientes
     end
