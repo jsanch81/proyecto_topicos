@@ -16,14 +16,16 @@
       <li class="col-md">
         <%= link_to "Inicio", root_path %>
       </li>
-      <li>
-        <%= link_to "Canciones publicas", articles_path %>
-      </li>
       <%else%>
       <li class="col-md">
         <%= link_to "Inicio", articles_path %>
       </li>
       <%end%>
+      <% if not user_signed_in? %>
+        <li>
+        <%= link_to "Canciones", articles_path %>
+      </li>
+      <% end %>
       <%if user_signed_in? %>
       <li class="col-md">
         <%=link_to "Perfil", edit_user_registration_path %>
@@ -47,14 +49,10 @@
       <li class="col-md">
         <%=link_to "¿Que es sicMu?", about_index_path %>
       </li>
-      <li>
-      </li>
       <%end%>
       <%if user_signed_in? %>
       <li class="col-md">
         <%=link_to "Cerrar sesión",destroy_user_session_path, method: :delete%>
-      </li>
-      <li>
       </li>
       <%end%>
     </ul>
