@@ -9,7 +9,7 @@ gem 'pg'
 
 gem 'bundle'
 # this gem is for upload files.
-gem 'paperclip'
+gem 'paperclip', "~> 5.1.0"
 
 gem 'bundler'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

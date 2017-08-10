@@ -59,6 +59,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title,:body,:tamano,:artista,:ano,:tiempo,:album,:privacida)
+    params.require(:article).permit(:title,:body,:tamano,:artista,:ano,:tiempo,:album,:privacida,:mp3)
   end
 end

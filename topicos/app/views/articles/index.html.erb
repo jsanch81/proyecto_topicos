@@ -17,6 +17,7 @@
               <div>
                 <%=article.body%>
                 <p class="inicio center-xs">visitas: <%=article.visit_count%></p>
+
                 <% if user_signed_in? and article.user== current_user %>
                   <div class="ini"><%= link_to "Eliminar", article, method: :delete, class:"red"%></a></div>
                 <% end %>
@@ -59,5 +60,6 @@
                 </div>
               </div>
             <% end %>
+
           <%end%>
       </div>
