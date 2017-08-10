@@ -151,3 +151,31 @@ inset 0 10px 15px rgba(255,255,255,.35), inset 0 -10px 15px rgba(0,0,0,.05), ins
 /* Sombra interna */
 0 5px 20px rgba(0,0,0,.1);
 }
+.reproductor_boton_inicio{
+  background: url(https://image.flaticon.com/icons/png/512/7/7520.png) /* Url de la imagen */ no-repeat center center , gray/* Color del botón */;
+  background-size: 60%; /* Tamaño de la imagen */
+  height: 50px;  /* Alto del botón */
+  width: 50px;  /* Ancho del botón */
+  display: table;
+  border-radius: 100%;
+  cursor: pointer;
+    box-shadow:
+/* Sombras externa */
+inset 0 5px 5px rgba(255,255,255,.35), inset 0 -10px 15px rgba(0,0,0,.05), inset 5px 0 55px rgba(0,0,0,.05), inset -5px 0 5px rgba(0,0,0,.05),
+/* Sombra interna */
+0 5px 20px rgba(0,0,0,.1);
+}
+.boton_pausa_inicio{
+  background: url(http://icon-icons.com/icons2/1144/PNG/512/pausebutton_80847.png) /* Url de la imagen */ no-repeat center center, gray/* Color del botón */;
+  background-size: 60%; /* Tamaño de la imagen */
+  height: 50px;  /* Alto del botón */
+  width: 50px;  /* Ancho del botón */
+  display: table;
+  border-radius: 100%;
+  cursor: pointer;
+    box-shadow:
+/* Sombras externa */
+inset 0 10px 15px rgba(255,255,255,.35), inset 0 -10px 15px rgba(0,0,0,.05), inset 10px 0 15px rgba(0,0,0,.05), inset -10px 0 15px rgba(0,0,0,.05),
+/* Sombra interna */
+0 5px 20px rgba(0,0,0,.1);
+}
