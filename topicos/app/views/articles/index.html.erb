@@ -1,12 +1,20 @@
-<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
-<!-- Jplayer files for circle player -->
-<script type="text/javascript" src="javascripts/jquery.jplayer.min.js"></script>
-<script type="text/javascript" src="javascripts/jquery.transform2d.js"></script>
-<script type="text/javascript" src="javascripts/jquery.grab.js"></script>
-<script type="text/javascript" src="javascripts/mod.csstransforms.min.js"></script>
-<script type="text/javascript" src="javascripts/circle.player.js"></script>
-<!-- Jplayer files -->
 
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="js/jquery.transform2d.js"></script>
+<script type="text/javascript" src="js/jquery.grab.js"></script>
+<script type="text/javascript" src="js/mod.csstransforms.min.js"></script>
+<script type="text/javascript" src="js/circle.player.js"></script>
+<!--
+<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="./jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="./jquery.transform2d.js"></script>
+<script type="text/javascript" src="./jquery.grab.js"></script>
+<script type="text/javascript" src="./mod.csstransforms.min.js"></script>
+<script type="text/javascript" src="./circle.player.js"></script>
+-->
 <!-- jquery_jplayer_1 is the id here -->
 
 
@@ -32,7 +40,7 @@
 
           }, {
             cssSelectorAncestor: "#cp_container_<%=article.id%>",
-            swfPath: "js",
+            swfPath: "/js",
             wmode: "window",
             supplied: "mp3",
             keyEnabled: true
