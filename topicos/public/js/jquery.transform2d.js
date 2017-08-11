@@ -105,7 +105,7 @@ if ( supportProperty && supportProperty != _transform ) {
 	else if ( supportProperty == "Webkit" + suffix && support3dTransform ) {
 		propertyHook = {
 			set: function( elem, value ) {
-				elem.style[supportProperty] = 
+				elem.style[supportProperty] =
 					value.replace();
 			}
 		}
