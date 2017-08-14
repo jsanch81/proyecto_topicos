@@ -6,6 +6,12 @@ git_source(:github) do |repo_name|
 end
 # this gem is for conect the db.
 gem 'pg'
+#this gem is for play tha music
+gem 'jplayer-rails', '~> 2.5'
+
+gem 'jquery', '~> 0.0.1'
+
+gem 'turbolinks'
 
 gem 'bundle'
 # this gem is for upload files.

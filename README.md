@@ -1,378 +1,232 @@
-rubyArticulosEM
+Proyecto_topicos
 
-By: Jose David Sanchez Catrillon - jsanch81@eafit.edu.co
-
-DEVELOPMENT::
+Proyecto de la materia Tópicos Telemática by Jose David Sanchez Castrillon - jsanch81@eafit.edu.co
 
 1. Creating the Article Application
 
-    user1@dev$ rails new rubyArticulosEM
+rails new Articles
+
 2. Starting up the WebApp Server
 
-    user1@dev$ rails server
+rails server
+
 Open browser: http://localhost:3000
 3. Main page: "Hello World"
 
-    user1@dev$ rails generate controller Welcome index
+rails generate controller Welcome index
 
-    edit:
-    app/views/welcome/index.html.erb
-    config/routes.rb
-4. Create REST routes
+edit: app/views/welcome/index.html.erb config/routes.rb
 
-edit: config/routes.rb # scope '/' -> run http://server:3000 (native) or http://server (inverse proxy or passenger) # scope '/prefix_url' -> run http://server:3000/prefix_url or http://server/prefix_url (inverse proxy or passenger). # ej: http://10.131.137.236/rubyArticulos Rails.application.routes.draw do scope '/' do get 'welcome/index' resources :articles root 'welcome#index' end end
+4. Editing routes
 
-run:
-jsanch81@$ rails routes
+=begin get "/articles" index post "/articles" create delete "/articles/:id" destroy get "/articles/:id" show get "/articles/new" new get "/articles/:id/edit" edit patch "/articles/:id" update put "/articles/:id" update =end
 
-output:
+5. Generate controller for Articles
 
-Prefix Verb   URI Pattern                  Controller#Action
+rails generate controller Articles
 
-search_create_path	GET	/search/create(.:format)	search#create
-comments_path	GET	/comments(.:format)	comments#index
-POST	/comments(.:format)	comments#create
-new_comment_path	GET	/comments/new(.:format) comments#new
-edit_comment_path	GET	/comments/:id/edit(.:format) comments#edit
-comment_path	GET	/comments/:id(.:format)	comments#show
-PATCH	/comments/:id(.:format)	comments#update
-PUT	/comments/:id(.:format)	comments#update
-DELETE	/comments/:id(.:format) comments#destroy
-new_user_session_path	GET	/users/sign_in(.:format) devise/sessions#new
-user_session_path	POST	/users/sign_in(.:format) devise/sessions#create
-destroy_user_session_path	DELETE	/users/sign_out(.:format) devise/sessions#destroy
-new_user_password_path	GET	/users/password/new(.:format)	devise/passwords#new
-edit_user_password_path	GET	/users/password/edit(.:format) devise/passwords#edit
-user_password_path	PATCH	/users/password(.:format)	devise/passwords#update
-PUT	/users/password(.:format)	devise/passwords#update
-POST	/users/password(.:format)	devise/passwords#create
-cancel_user_registration_path	GET	/users/cancel(.:format)	devise/registrations#cancel
-new_user_registration_path	GET	/users/sign_up(.:format)	devise/registrations#new
-edit_user_registration_path	GET	/users/edit(.:format)	devise/registrations#edit
-user_registration_path	PATCH	/users(.:format)	devise/registrations#update
-PUT	/users(.:format)	devise/registrations#update
-DELETE	/users(.:format) devise/registrations#destroy
-POST	/users(.:format) devise/registrations#create
-articles_path	GET	/articles(.:format)	articles#index
-POST	/articles(.:format)	articles#create
-new_article_path	GET	/articles/new(.:format)	articles#new
-edit_article_path	GET	/articles/:id/edit(.:format) articles#edit
-article_path	GET	/articles/:id(.:format)	articles#show
-PATCH	/articles/:id(.:format)	articles#update
-PUT	/articles/:id(.:format)	articles#update
-DELETE	/articles/:id(.:format) articles#destroy
-GET	/search/create(.:format) search#create
-about_index_path	POST	/about/index(.:format) about#index
-GET	/about/index(.:format) about#index
-perfil_index_path	GET	/perfil/index(.:format) perfil#index
-examples_form_path	POST	/examples/form(.:format) examples#form
-GET	/examples/form(.:format) examples#form
-welcome_index_path	GET	/welcome/index(.:format) welcome#index
-root_path	GET	/	welcome#index
-GET	/:controller/:action/:id(.:format) :controller#:action
+6. Create a FORM HTML for new articles
 
-5. Generate controller for 'articles' REST Services
+app/views/articles/new.html.erb:
 
-    user1@dev$ rails generate controller Articles
-modify: app/controllers/articles_controller.rb
-
-create: app/views/articles/new.html.erb
-
-run: http://localhost:3000/articles/new
-
-6. Create a FORM HTML to enter data for an article
-
-edit: app/views/articles/new.html.erb:
-
-<%= form_for :article do |f| %>
-<p>
-  <%= f.label :title %><br>
-  <%= f.text_field :title %>
-</p>
-
-<p>
-  <%= f.label :text %><br>
-  <%= f.text_area :text %>
-</p>
-<p>
-  <%= f.submit %>
-</p>
-<% end %>
-modify: app/views/articles/new.html.erb:
-
-<%= form_for :article, url: articles_path do |f| %>
-
-POST method and require 'create' action.
-add 'create' action to ArticlesController:
-
-  class ArticlesController < ApplicationController
-    def new
-    end
-
-    def create
-      render plain: params[:article].inspect
-    end
-  end     
-7. Creating the Article model
-
-  user1@dev$ rails generate model Article title:string text:text
-look db/migrate/YYYYMMDDHHMMSS_create_articles.rb:
-
-class CreateArticles < ActiveRecord::Migration[5.0]
-  def change
-    create_table :articles do |t|
-      t.string :title
-      t.text :text
-
-      t.timestamps
-    end
-  end
-end
-8. Running a Migration
-
-run:
-
-user1@dev$ rails db:migrate
-include postgresql in test and production environment:
-
-(Warning: install postgresql server on host)
-
-Modify Gemfile
-
-# Use Postgresql as the database for Active Record
-gem 'pg'
-Modify config/database.yml:
-
-test:
-    adapter: postgresql
-    database: articulosem_test
-    user: pguser
-    password: changeme
-    host: localhost
-    port: 5432
-    pool: 5
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    timeout: 5000
-
-production:
-    adapter: postgresql
-    database: articulosem
-    user: pguser
-    password: changeme
-    host: localhost
-    port: 5432
-    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-    timeout: 5000    
-Drop, Create and migrate new database:
-
-    user1@dev$ rake db:drop db:create db:migrate
-9. Saving data in the controller
-
-Open app/controllers/articles_controller.rb
-
-def create
-  @article = Article.new(params[:article])
-
-  @article.save
-  redirect_to @article
-end
-fix1:
-
-@article = Article.new(params.require(:article).permit(:title, :text))
-fix2:
-
-def create
-  @article = Article.new(article_params)
-
-  @article.save
-  redirect_to @article
-end
-
-private
-  def article_params
-    params.require(:article).permit(:title, :text)
-  end      
-10. Showing Articles
-
-Route:
-
-article GET    /articles/:id(.:format)      articles#show
-Controller: add action in app/controllers/articles_controller.rb
-
-def show
-  @article = Article.find(params[:id])
-end
-View: create a new file app/views/articles/show.html.erb
-
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
-
-<p>
-  <strong>Text:</strong>
-  <%= @article.text %>
-</p>    
-11. Listing all articles
-
-Route:
-
-articles GET    /articles(.:format)          articles#index
-Controller: add action in app/controllers/articles_controller.rb
-
-def index
-   @articles = Article.all
-end
-View: create a new file app/views/articles/index.html.erb
-
-<h1>Listing articles</h1>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Text</th>
-    <th></th>
-  </tr>
-
-  <% @articles.each do |article| %>
-    <tr>
-      <td><%= article.title %></td>
-      <td><%= article.text %></td>
-      <td><%= link_to 'Show', article_path(article) %></td>
-    </tr>
-  <% end %>
-</table>
-12. Adding links
-
-View: Open app/views/welcome/index.html.erb
-
-<h1>Hello World EAFIT</h1>
-<%= link_to 'My Articles', controller: 'articles' %>  
-View: app/views/articles/index.html.erb
-
-<%= link_to 'New article', new_article_path %>    
-View: app/views/articles/new.html.erb
-
-<%= form_for :article, url: articles_path do |f| %>
-  ...
-<% end %>
-
-<%= link_to 'Back', articles_path %>
-View: app/views/articles/show.html.erb
-
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
-
-<p>
-  <strong>Text:</strong>
-  <%= @article.text %>
-</p>
-
-<%= link_to 'Back', articles_path %>   
-13. Updating Articles
-
-Route:
-
-article GET    /articles/:id(.:format)      articles#show
-Controller: edit action to the ArticlesController -> app/controllers/articles_controller.rb
-
-def edit
-@article = Article.find(params[:id])
-end
-View: new page: app/views/articles/edit.html.erb
-
-<h1>Edit article</h1>
+<div style="width:100%;margin:1; auto; align-text:center;">
+  <h1 class="crear">Agregar canción</h1>
+  <%=render "form"%>
+</div>
+app/views/articles/_form.html.erb:
 
 <%= form_for(@article) do |f| %>
-
-  <% if @article.errors.any? %>
-    <div id="error_explanation">
-      <h2>
-        <%= pluralize(@article.errors.count, "error") %> prohibited
-        this article from being saved:
-      </h2>
-      <ul>
-        <% @article.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
+  <% @article.errors.full_messages.each do |message|%>
+    <div class="be-red white err">
+      *<%=message%>
     </div>
-  <% end %>
+  <%end%>
+  <div class="field">
 
-  <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </p>
+    <h5 class="inicio">Privacidad de la canción: </h5>-<%= f.select :privacida, options_for_select([["Publico"], ["Privado"],["Compartido"]]) %>
+  </div>
+  <div class="field">
+    <%= f.text_field :title, placeholder: "Titulo de la canción", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :artista, placeholder: "Nombre del artista", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :tamano, placeholder: "Tamaño de la canción en Megabytes", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :album, placeholder: "Nombre del album", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :ano, placeholder: "Año de estreno", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_field :tiempo, placeholder: "Duración de la canción", class:"form-control" %>
+  </div>
+  <div class="field">
+    <%= f.text_area :body, placeholder: "Descripcion de la canción", style:"height:200px", class:"form-control" %>
+  </div>
+  <div class="field inicio">
+    <%=f.label :mp3 %><br>
+    <%=f.file_field :mp3%>
+  </div>
+  <div class="field">
+      <%=f.submit "Guardar", class:"btn"%>
+  </div>
+<%end %>
 
-  <p>
-    <%= f.label :text %><br>
-    <%= f.text_area :text %>
-  </p>
+7. Creating the Article model
 
-  <p>
-    <%= f.submit %>
-  </p>
+rails generate model Article title:string body:string artista:string tamano:string privacida:string album:string ano:integer tiempo:string
 
-<% end %>
+class CreateArticles < ActiveRecord::Migration[5.1] def change create_table :articles do |t| t.string :title t.text :body t.integer :visits_count t.string :disponible t.string :tamano end end end
 
-<%= link_to 'Back', articles_path %>  
-Controller: update action in app/controllers/articles_controller.rb
+8. Running a migration
 
-def update
-  @article = Article.find(params[:id])
+rails db:migrate
 
-  if @article.update(article_params)
+include postgresql in test and production environment:
+
+test: database: db_musica adapter: postgresql pool: 5 username: jsanch81 password: 9708 host: localhost port: 5432
+
+production: database: db_musica adapter: postgresql pool: 5 username: jsanch81 password: 9708 host: localhost port: 5432
+
+9. Saving data in the controller
+
+#POST /articles
+def create
+  @article = current_user.articles.new(article_params)
+  if @article.save
     redirect_to @article
   else
-    render 'edit'
+    render :new
   end
 end
-View: add link 'edit' in app/views/articles/index.html.erb
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Text</th>
-    <th colspan="2"></th>
-  </tr>
+10. Showing articles
 
-  <% @articles.each do |article| %>
-    <tr>
-      <td><%= article.title %></td>
-      <td><%= article.text %></td>
-      <td><%= link_to 'Show', article_path(article) %></td>
-      <td><%= link_to 'Edit', edit_article_path(article) %></td>
-    </tr>
+#GET /articles/:id
+def show
+  @article.update_visits_count
+end
+
+app/views/articles/show.html.erb
+<%= @article.title %>
+
+#GET article
+def index
+  palabra = "%#{params[:keyword]}%"
+  if palabra!=nil
+    @articles = Article.where("title LIKE ? OR artista LIKE ? OR album LIKE ?",palabra,palabra,palabra)
+  else
+    @articles = Article.all.recientes
+  end
+end
+
+#GET /articles/new
+def new
+  @article = Article.new
+end
+
+app/views/articles/index.html.erb
+<div class="center-xs field",id="bus">
+  <%= form_tag articles_path, method: :get do %>
+    <%= text_field_tag :keyword,nil,placeholder: "¿Que estas buscando?" %>
+    <%= content_tag :button,class:"btn", type: :submit do%>
+      Buscar
+    <% end %>
   <% end %>
-</table>
-View: add link 'edit' in app/views/articles/show.html.erb:
+</div>
 
-...
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
-14. delete an Article
+    <div id="my-div3">
+      <% @articles.reverse.each do |article| %>
+      <div id="jquery_jplayer_<%=article.id%>" class="cp-jplayer center-xs"></div>
+        <% if article.privacida == "Publico" %>
+          <div class="center-xs col-md inicio">
+              <h1 class="inicio"><%=link_to article.title, article%></h1>
+              <h5 class="inicio">Artista: <%=article.artista%></h5>
+              <div>
+                <%=article.body%>
+                <% if user_signed_in? and article.user== current_user %>
+                  <div class="ini"><%= link_to "Eliminar", article, method: :delete, class:"red"%></a></div>
+                <% end %>
+              </div>
+            </div>
+        <% end %>
+        <% if  article.privacida == "Privado" and article.user == current_user %>
+            <div class="center-xs col-md inicio">
+              <h1 class="inicio"><%=link_to article.title, article%></h1>
+              <h5 class="inicio">Artista: <%=article.artista%></h5>
+              <div>
+                <%=article.body%>
+                <% if not article.user == nil %>
+                  <p class="inicio center-xs">subido por: <%=article.user.email%></p>
+                  <% else %>
+                  <p>subido por: Cuenta cerrada</p>
+                    <% end %>
+                  <% if article.user== current_user %>
+                    <div class="ini"><%= link_to "Eliminar", article, method: :delete, class:"red"%></a></div>
+                  <% end %>
+                </div>
+              </div>
+        <% end %>
+        <% if article.privacida == "Compartido" and user_signed_in? %>
+              <div class="center-xs col-md inicio">
+                <h1 class="inicio"><%=link_to article.title, article%></h1>
+                <h5 class="inicio">Artista: <%=article.artista%></h5>
+                <div>
+                  <%=article.body%>
+                  <% if not article.user == nil %>
+                    <p class="inicio center-xs">subido por: <%=article.user.email%></p>
+                  <% else %>
+                    <p>subido por: Cuenta cerrada</p>
+                  <% end %>
+                    <p class="inicio center-xs">visitas: <%=article.visit_count%></p>
+                  <% if article.user == current_user %>
+                    <div class="ini"><%= link_to "Eliminar", article, method: :delete, class:"red"%></a></div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
 
-Route:
+          <%end%>
+      </div>
 
-  DELETE /articles/:id(.:format)      articles#destroy  
-Controller: app/controllers/articles_controller.rb
+12. Updating Articles
 
-  def destroy
-    @article = Article.find(params[:id])
-    @article.destroy
+#PUT /articles/:id
 
-    redirect_to articles_path
-  end                                      
-View: add 'delete' link to app/views/articles/index.html.erb
+def update
 
-  ...
-  <td><%= link_to 'Edit', edit_article_path(article) %></td>
-  <td><%= link_to 'Delete', article_path(article), method: :delete,
-          data: { confirm: 'Are you sure?' } %></td>
-  ...
-DEPLOYMENT ON DCA FOR TESTING
+  if  @article.update(article_params)
+    redirect_to @article
+  else
+    render :edit
+  end
+end
+13. Deleting Articles
+
+delete "/articles/:id" destroy
+
+def destroy
+
+  @article.destroy
+  redirect_to articles_path
+end
+
+Deployment on Heroku
+
+*heroku login
+
+*heroku create
+
+*git add .
+
+*git commit -am "Deploy on Heroku"
+
+*git push heroku master
+
+Deployment on DCA
 
 1. Deploy the Article Web App on Linux Centos 7.x (test)
 
@@ -381,149 +235,162 @@ Install ruby and rails
 references:
 
 https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-ruby-on-rails-application-on-centos-7
-Connect remote server: (user1 is a sudo user)
 
-local$ ssh user1@10.131.137.236
-Password: *****
+Connect remote server: (jsanch81 is a sudo user)
 
-user1@test$
+local$ ssh jsanch81@10.131.137.229 Password: *****
+
+jsanch81@test$
+
 verify and install rvm, ruby, rails, postgres and nginx
 
 install rvm (https://rvm.io/rvm/install)
 
-  user1@test$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+jsanch81@test$ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 
-  user1@test$ \curl -sSL https://get.rvm.io | bash
+jsanch81@test$ \curl -sSL https://get.rvm.io | bash
+
 reopen terminal app:
 
-  user1@test$ exit
+jsanch81@test$ exit
 
-  local$ ssh user1@10.131.137.236
-  Password: *****
+local$ ssh jsanch81@10.131.137.229 Password: *****
+
 install ruby 2.4.1
 
-  user1@test$ rvm list known
-  user1@test$ rvm install 2.4.1
+jsanch81@test$ rvm list known jsanch81@test$ rvm install 2.4.1
+
 install rails
 
-  user1@test$ gem install rails
+jsanch81@test$ gem install rails
+
 install postgres:
 
-    user1@test$ sudo yum install -y postgresql-server postgresql-contrib postgresql-devel
-    Password: *****
+jsanch81@test$ sudo yum install -y postgresql-server postgresql-contrib postgresql-devel Password: *****
 
-    user1@test$ sudo postgresql-setup initdb
+jsanch81@test$ sudo postgresql-setup initdb
 
-    user1@test$ sudo vi /var/lib/pgsql/data/pg_hba.conf
+jsanch81@test$ sudo vi /var/lib/pgsql/data/pg_hba.conf
 
-    original:
+original:
 
-    host    all             all             127.0.0.1/32            ident
-    host    all             all             ::1/128                 ident
+     host    all             all             127.0.0.1/32            ident
+     host    all             all             ::1/128                 ident
 
-    updated:
+     updated:
 
-    host    all             all             127.0.0.1/32            md5
-    host    all             all             ::1/128                 md5
+     host    all             all             127.0.0.1/32            md5
+     host    all             all             ::1/128                 md5
 run postgres:
 
-  user1@test$ sudo systemctl start postgresql
-  user1@test$ sudo systemctl enable postgresql
+  jsanch81@test$ sudo systemctl start postgresql
+  jsanch81@test$ sudo systemctl enable postgresql
 Create Database User:
 
-  user1@test$ sudo su - postgres
+  jsanch81@test$ sudo su - postgres
 
-  user1@test$ createuser -s pguser
+  jsanch81@test$ createuser -s pguser
 
-  user1@test$ psql
+  jsanch81@test$ psql
 
   postgres=# \password pguser
   Enter new password: changeme
 
   postgres=# \q
 
-  user1@test$ exit
+  jsanch81@test$ exit
 Setup RAILS_ENV and PORT (3000 for dev, 4000 for testing or 5000 for production)
 
-    user1@test$ export RAILS_ENV=test
-    user1@test$ export PORT=4000
+     jsanch81@test$ export RAILS_ENV=test
+     jsanch81@test$ export PORT=3001
 open PORT on firewalld service:
 
-    user1@test$ sudo firewall-cmd --zone=public --add-port=4000/tcp --permanent
-    user1@test$ sudo firewall-cmd --reload
+     jsanch81@test$ sudo firewall-cmd --zone=public --add-port=4000/tcp --permanent
+     jsanch81@test$ sudo firewall-cmd --reload
 clone de git repo, install and run:
 
-    user1@test$ mkdir apps
-    user1@test$ cd apps
-    user1@test$ git clone https://github.com/st0263eafit/rubyArticulosEM.git
-    user1@test$ cd rubyArticulosEM
-    user1@test$ bundle install
-    user1@test$ rake db:drop db:create db:migrate
-    user1@test$ export RAILS_ENV=test
-    user1@test$ export PORT=4000
-    user1@test$ rails server
-SETUP Centos 7.1 in production With Apache Web Server and Passenger.
+     jsanch81@test$ cd Documents
+     jsanch81@test$ git clone https://github.com/st0263eafit/rubyArticulosEM.git
+     jsanch81@test$ cd TopicosTelematica
+     jsanch81@test$ cd trabajo
+     jsanch81@test$ bundle install
+     jsanch81@test$ rake db:drop db:create db:migrate
+     jsanch81@test$ export RAILS_ENV=test
+     jsanch81@test$ export PORT=3001
+     jsanch81@test$ rails server
+Prefix Verb URI Pattern Controller#Action
 
-Install Apache Web Server
+                          GET "/articles" index                welcome#index
+                          POST "/articles" create              articles#create
+                          DELETE "/articles/:id" destroy       articles#destroy
+                          GET "/articles/:id" show             articles#show
+                          GET "/articles/new" new              articles#new
+                          GET "/articles/:id/edit" edit        articles#edit
+                          PATCH "/articles/:id" update         articles#update
+                          PUT "/articles/:id" update           articles#update
+               root       GET  welcome/index                   welcome#index
+               SETUP Centos 7.1 in production With Apache Web Server and Passenger.
 
-  user1@prod$ sudo yum install httpd
-  user1@prod$ sudo systemctl enable httpd
-  user1@prod$ sudo systemctl start httpd
+               Install Apache Web Server
 
-  test in a browser: http://10.131.137.236
-Install YARN (https://yarnpkg.com/en/docs/install) (for rake assets:precompile):
+                 jsanch81@prod$ sudo yum install httpd
+                 jsanch81@prod$ sudo systemctl enable httpd
+                 jsanch81@prod$ sudo systemctl start httpd
 
-Install module Passenger for Rails in HTTPD (https://www.phusionpassenger.com/library/install/apache/install/oss/el7/):
+                 test in a browser: http://10.131.137.236
+               Install YARN (https://yarnpkg.com/en/docs/install) (for rake assets:precompile):
 
-  user1@prod$ gem install passenger
+               Install module Passenger for Rails in HTTPD (https://www.phusionpassenger.com/library/install/apache/install/oss/el7/):
 
-  user1@prod$ passenger-install-apache2-module
-when finish the install module, add to /etc/http/conf/httpd.conf:
+                 jsanch81@prod$ gem install passenger
 
-    LoadModule passenger_module /home/user1/.rvm/gems/ruby-2.4.1/gems/passenger-5.1.6/buildout/apache2/mod_passenger.so
-    <IfModule mod_passenger.c>
-      PassengerRoot /home/user1/.rvm/gems/ruby-2.4.1/gems/passenger-5.1.6
-      PassengerDefaultRuby /home/user1/.rvm/gems/ruby-2.4.1/wrappers/ruby
-    </IfModule>
-Configure the ruby rails app to use passenger (https://www.phusionpassenger.com/library/walkthroughs/deploy/ruby/ownserver/apache/oss/el7/deploy_app.html):
+                 jsanch81@prod$ passenger-install-apache2-module
+               when finish the install module, add to /etc/http/conf/httpd.conf:
 
-summary:
+                   LoadModule passenger_module /home/jsanch81/.rvm/gems/ruby-2.4.1/gems/passenger-5.1.7/buildout/apache2/mod_passenger.so
+                   <IfModule mod_passenger.c>
+                     PassengerRoot /home/jsanch81/.rvm/gems/ruby-2.4.1/gems/passenger-5.1.7
+                     PassengerDefaultRuby /home/jsanch81/.rvm/gems/ruby-2.4.1/wrappers/ruby
+                   </IfModule>
+               Configure the ruby rails app to use passenger (https://www.phusionpassenger.com/library/walkthroughs/deploy/ruby/ownserver/apache/oss/el7/deploy_app.html):
 
-  - clone the repo to /var/www/myapp/rubyArticulosEM
+               summary:
 
-  user1@prod$ cd /var/www/myapp/rubyArticulosEM
+                 - clone the repo to /var/www/myapp/rubyArticulosEM
 
-  user1@prod$ bundle install --deployment --without development test
+                 jsanch81@prod$ cd /var/www/myapp/rubyArticulosEM
 
-  - Configure database.yml and secrets.yml:
+                 jsanch81@prod$ bundle install --deployment --without development test
 
-  user1@prod$ bundle exec rake secret
-  user1@prod$ vim config/secrets.yml
+                 - Configure database.yml and secrets.yml:
 
-  production:
-    secret_key_base: the value that you copied from 'rake secret'
+                 jsanch81@prod$ bundle exec rake secret
+                 jsanch81@prod$ vim config/secrets.yml
 
-  user1@prod$ bundle exec rake assets:precompile db:migrate RAILS_ENV=production
-add articles.conf to /etc/httpd/conf.d/myapp.conf:
+                 production:
+                   secret_key_base: the value that you copied from 'rake secret'
 
-  <VirtualHost *:80>
-      ServerName 10.131.137.236
+                 jsanch81@prod$ bundle exec rake assets:precompile db:migrate RAILS_ENV=production
+               add articles.conf to /etc/httpd/conf.d/myapp.conf:
 
-      # Tell Apache and Passenger where your app's 'public' directory is
-      DocumentRoot /var/www/myapp/rubyArticulosEM/public
+                 <VirtualHost *:81>
+                     ServerName 10.131.137.236
 
-      PassengerRuby /home/user1/.rvm/gems/ruby-2.4.1/wrappers/ruby
+                     # Tell Apache and Passenger where your app's 'public' directory is
+                     DocumentRoot /var/www/sicmu/code/topicos/public
 
-      # Relax Apache security settings
-      <Directory /var/www/myapp/rubyArticulosEM/public>
-          Allow from all
-          Options -MultiViews
-          # Uncomment this if you're on Apache >= 2.4:
-          #Require all granted
-      </Directory>
-  </VirtualHost>
-restart httpd
+                     PassengerRuby /home/jsanch81/.rvm/gems/ruby-2.4.1/wrappers/ruby
 
-  user1@prod$ sudo systemctl restart httpd
+                     # Relax Apache security settings
+                     <Directory /var/www/sicmu/code/topicos/public>
+                         Allow from all
+                         Options -MultiViews
+                         # Uncomment this if you're on Apache >= 2.4:
+                         #Require all granted
+                     </Directory>
+                 </VirtualHost>
+               restart httpd
 
-  test: http://10.131.137.239
+                 jsanch81@prod$ sudo systemctl restart httpd
+
+                 test: http://10.131.137.239
