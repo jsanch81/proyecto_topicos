@@ -11,8 +11,6 @@ gem 'jplayer-rails', '~> 2.5'
 
 gem 'jquery', '~> 0.0.1'
 
-gem 'turbolinks'
-
 gem 'bundle'
 # this gem is for upload files.
 gem 'paperclip', "~> 5.1.0"
