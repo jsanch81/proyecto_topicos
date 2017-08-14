@@ -1,31 +1,31 @@
-Proyecto_topicos
+#Proyecto_topicos
 
 Proyecto de la materia Tópicos Telemática by Jose David Sanchez Castrillon - jsanch81@eafit.edu.co
 
-1. Creating the Article Application
+##1. Creating the Article Application
 
 rails new Articles
 
-2. Starting up the WebApp Server
+##2. Starting up the WebApp Server
 
 rails server
 
 Open browser: http://localhost:3000
-3. Main page: "Hello World"
+##3. Main page: "Hello World"
 
 rails generate controller Welcome index
 
 edit: app/views/welcome/index.html.erb config/routes.rb
 
-4. Editing routes
+##4. Editing routes
 
 =begin get "/articles" index post "/articles" create delete "/articles/:id" destroy get "/articles/:id" show get "/articles/new" new get "/articles/:id/edit" edit patch "/articles/:id" update put "/articles/:id" update =end
 
-5. Generate controller for Articles
+##5. Generate controller for Articles
 
 rails generate controller Articles
 
-6. Create a FORM HTML for new articles
+##6. Create a FORM HTML for new articles
 
 app/views/articles/new.html.erb:
 
@@ -75,13 +75,13 @@ app/views/articles/_form.html.erb:
   </div>
 <%end %>
 
-7. Creating the Article model
+##7. Creating the Article model
 
 rails generate model Article title:string body:string artista:string tamano:string privacida:string album:string ano:integer tiempo:string
 
 class CreateArticles < ActiveRecord::Migration[5.1] def change create_table :articles do |t| t.string :title t.text :body t.integer :visits_count t.string :disponible t.string :tamano end end end
 
-8. Running a migration
+##8. Running a migration
 
 rails db:migrate
 
@@ -91,7 +91,7 @@ test: database: db_musica adapter: postgresql pool: 5 username: jsanch81 passwor
 
 production: database: db_musica adapter: postgresql pool: 5 username: jsanch81 password: 9708 host: localhost port: 5432
 
-9. Saving data in the controller
+##9. Saving data in the controller
 
 #POST /articles
 def create
@@ -103,7 +103,7 @@ def create
   end
 end
 
-10. Showing articles
+##10. Showing articles
 
 #GET /articles/:id
 def show
@@ -192,7 +192,7 @@ app/views/articles/index.html.erb
           <%end%>
       </div>
 
-12. Updating Articles
+##12. Updating Articles
 
 #PUT /articles/:id
 
@@ -204,7 +204,7 @@ def update
     render :edit
   end
 end
-13. Deleting Articles
+##13. Deleting Articles
 
 delete "/articles/:id" destroy
 
@@ -228,7 +228,7 @@ Deployment on Heroku
 
 Deployment on DCA
 
-1. Deploy the Article Web App on Linux Centos 7.x (test)
+##1. Deploy the Article Web App on Linux Centos 7.x (test)
 
 Install ruby and rails
 
@@ -376,16 +376,16 @@ Prefix Verb URI Pattern Controller#Action
                  <VirtualHost *:81>
                      ServerName 10.131.137.236
 
-                     # Tell Apache and Passenger where your app's 'public' directory is
+                     #Tell Apache and Passenger where your app's 'public' directory is
                      DocumentRoot /var/www/sicmu/code/topicos/public
 
                      PassengerRuby /home/jsanch81/.rvm/gems/ruby-2.4.1/wrappers/ruby
 
-                     # Relax Apache security settings
+                     #Relax Apache security settings
                      <Directory /var/www/sicmu/code/topicos/public>
                          Allow from all
                          Options -MultiViews
-                         # Uncomment this if you're on Apache >= 2.4:
+                         #Uncomment this if you're on Apache >= 2.4:
                          #Require all granted
                      </Directory>
                  </VirtualHost>
