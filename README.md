@@ -376,12 +376,12 @@ Prefix Verb URI Pattern Controller#Action
                  <VirtualHost *:81>
                      ServerName 10.131.137.236
 
-                     #Tell Apache and Passenger where your app's 'public' directory is
+                   # Tell Apache and Passenger where your app's 'public' directory is
                      DocumentRoot /var/www/sicmu/code/topicos/public
 
                      PassengerRuby /home/jsanch81/.rvm/gems/ruby-2.4.1/wrappers/ruby
 
-                     #Relax Apache security settings
+                     # Relax Apache security settings
                      <Directory /var/www/sicmu/code/topicos/public>
                          Allow from all
                          Options -MultiViews
