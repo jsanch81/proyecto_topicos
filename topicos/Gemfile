@@ -7,7 +7,7 @@ end
 # this gem is for conect the db.
 gem 'pg'
 #this gem is for play tha music
-gem 'jplayer-rails', '~> 2.5'
+gem 'jplayer-rails'
 
 gem 'jquery', '~> 0.0.1'
 
